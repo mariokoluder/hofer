@@ -3,7 +3,7 @@
 <div class="main-content side-content pt-0">
   <div class="main-container container-fluid">
     <div class="inner-body">
-
+      
       <!-- Page Header -->
       <div class="page-header">
         <div>
@@ -11,37 +11,38 @@
         </div>
       </div>
       <!-- End Page Header -->
-
+      
       <!-- Row -->
       <div class="row row-sm">
         <div class="col-lg-12 col-md-12">
           <div class="card custom-card">
             <div class="card-body">
-              <form action="{{ route('manufacturers.store') }}" method="POST">
+              <form action="{{ route('manufacturers.update', $manufacturer) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row row-sm">
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <input class="form-control @error('title') is-invalid state-invalid @enderror" placeholder="Ime" name="title" type="text" value="{{ old('title') }}">
+                      <input class="form-control @error('title') is-invalid state-invalid @enderror" placeholder="Ime" name="title" type="text" value="{{ old('title') ? old('title') : $manufacturer->title }}">
                       @error('title')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                      <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
                   </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="submit" class="btn ripple btn-primary" value="Spremi">  
-                    </div>         
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="submit" class="btn ripple btn-primary" value="Spremi">  
+                      </div>         
+                    </div>
                   </div>
+                  </form>
                 </div>
-`              </form>
+              </div>
             </div>
           </div>
+          <!-- End Row -->
         </div>
       </div>
-      <!-- End Row -->
     </div>
-  </div>
-</div>
-@endsection
+    @endsection
