@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreGradeRequest;
+use App\Http\Requests\UpdateGradeRequest;
 use App\Models\Manufacturer;
 use App\Models\Grade;
 use App\Models\Disc;
@@ -21,16 +22,28 @@ class GradeController extends Controller
     return view('grade.create', compact('manufacturers'));
   }
 
-  public function store(Request $request)
+  public function store(StoreGradeRequest $request)
   {
-    $grade = new Grade;
-    $grade->title = $request->title;
-    $grade->ident = $request->ident;
-    $grade->diam = $request->diam;
-    $grade->manufacturer_id = $request->manufacturer_id;
-    $grade->save();
+    $grade = Grade::create($request->all());
+    return redirect()->action([GradeController::class, 'index'])->with('success', 'Uspješno ste kreirali materijal: '. $grade->title);
+  }
 
-    return redirect()->action([GradeController::class, 'index']);
+  public function edit(Grade $grade)
+  {
+    $manufacturers = Manufacturer::all();
+    return view('grade.edit', compact('grade', 'manufacturers'));
+  }
+
+  public function update(UpdateGradeRequest $request, Grade $grade)
+  {
+    $grade->update($request->all());
+    return redirect()->action([GradeController::class, 'index'])->with('success', 'Uspješno ste uredili materijal: '. $grade->title);
+  }
+
+  public function destroy(Grade $grade)
+  {
+    $grade->delete();
+    return redirect()->action([GradeController::class, 'index'])->with('success', 'Uspješno ste izbrisali materijal: '. $grade->title);
   }
 
   public function coef(Grade $grade)

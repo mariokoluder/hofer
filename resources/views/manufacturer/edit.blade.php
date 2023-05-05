@@ -23,7 +23,7 @@
                 <div class="row row-sm">
                   <div class="col-lg-4">
                     <div class="form-group">
-                      <input class="form-control @error('title') is-invalid state-invalid @enderror" placeholder="Ime" name="title" type="text" value="{{ old('title') ? old('title') : $manufacturer->title }}">
+                      <input class="form-control @error('title') is-invalid state-invalid @enderror" placeholder="Ime" name="title" type="text" value="{{ old('title', $manufacturer) }}">
                       @error('title')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror

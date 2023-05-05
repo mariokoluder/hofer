@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateManufacturerRequest extends FormRequest
+class StoreGradeRequest extends FormRequest
 {
   /**
   * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class UpdateManufacturerRequest extends FormRequest
   public function rules()
   {
     return [
-      'title' => 'required|max:255'
+      'title' => 'required|max:255',
+      'ident' => 'required|unique:grades|max:255',
+      'manufacturer_id' => 'required',
     ];
   }
 }

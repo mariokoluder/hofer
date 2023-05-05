@@ -17,7 +17,7 @@ return new class extends Migration
       $table->id();
       $table->string('title');
       $table->string('ident')->unique();
-      $table->enum('location', ['stock', 'warehouse', 'machine', 'used', 'undefined']);
+      $table->enum('location', ['stock', 'warehouse', 'machine', 'used', 'undefined'])->default('undefined');
       $table->integer('diam')->nullable()->default(null);
       $table->unsignedInteger('price')->default(0);
       $table->string('currency')->default('EUR');
