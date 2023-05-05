@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreDiscRequest;
+use App\Http\Requests\UpdateDiscRequest;
 use App\Models\Grade;
 use App\Models\Disc;
 
@@ -16,36 +17,33 @@ class DiscController extends Controller
 
   public function create()
   {
-    $grades = Grade::where('id', '>=', 0)->orderBy('ident')->get();
+    $grades = Grade::orderBy('ident')->get();
     return view('disc.create', compact('grades'));
   }
 
-  public function store(Request $request)
+  public function store(StoreDiscRequest $request)
   {
-    $disc = new Disc;
-    $disc->code = $request->code;
-    $disc->mass = $disc->current_mass = $request->mass;
-    $disc->lot_number = $request->lot_number;
-    $disc->grade_id = $request->grade_id;
-    $disc->location = $request->location;
+    $disc = Disc::create($request->all());
+    $disc->current_mass = $disc->mass;
     $disc->save();
-    return redirect()->action([DiscController::class, 'index']);
+    return redirect()->action([DiscController::class, 'index'])->with('success', 'Uspješno ste kreirali ploču broj: '. $disc->code);
   }
 
   public function edit(Disc $disc)
   {
-    $grades = Grade::where('id', '>=', 0)->orderBy('ident')->get();
+    $grades = Grade::orderBy('ident')->get();
     return view('disc.edit', compact('disc', 'grades'));
   }
 
-  public function update(Request $request, Disc $disc)
+  public function update(UpdateDiscRequest $request, Disc $disc)
   {
-    $disc->code = $request->code;
-    $disc->mass = $request->mass;
-    $disc->lot_number = $request->lot_number;
-    $disc->grade_id = $request->grade_id;
-    $disc->location = $request->location;
-    $disc->save();
-    return redirect()->action([DiscController::class, 'index']);
+    $disc->update($request->all());
+    return redirect()->action([DiscController::class, 'index'])->with('success', 'Uspješno ste uredili ploču broj: '. $disc->code);
+  }
+
+  public function destroy(Disc $disc)
+  {
+    $disc->delete();
+    return redirect()->action([DiscController::class, 'index'])->with('success', 'Uspješno ste izbrisali ploču broj: '. $disc->code);
   }
 }

@@ -9,18 +9,6 @@
         <div>
           <h2 class="main-content-title tx-24 mg-b-5">Ploče</h2>
         </div>
-        <div class="d-flex">
-          <div class="justify-content-center">
-            <button type="button" class="btn btn-white btn-icon-text my-2 me-2">
-              <i class="fe fe-settings"></i>
-              <span>Settings</span>
-            </button>
-            <button type="button" class="btn btn-primary my-2 btn-icon-text">
-              <i class="fe fe-download-cloud bg-white-transparent text-white"></i>
-              <span>Reports</span>
-            </button>
-          </div>
-        </div>
       </div>
       <!-- End Page Header -->
 

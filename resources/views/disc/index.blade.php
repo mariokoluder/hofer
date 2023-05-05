@@ -53,7 +53,24 @@
                         <td>{{ $disc->mass/100 }} g</td>
                         <td>{{ $disc->lot_number }}</td>
                         <td>{{ $disc->location }}</td>
-                        <td><a href="{{ route('discs.edit', $disc) }}">Uredi</a></td>
+                        <td>
+                          <a href="{{ route('discs.edit', $disc) }}" class="btn ripple btn-outline-warning btn-sm" ><i class="fe fe-edit"></i> Uredi</a>
+                          <button class="btn ripple btn-outline-danger btn-sm" data-bs-target="#modaldemo{{ $disc->id }}" data-bs-toggle="modal"><i class="fe fe-trash"></i> Izbriši</button>
+                          <div class="modal fade" id="modaldemo{{ $disc->id }}">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content modal-content-demo">
+                                <div class="modal-body">
+                                  <p>Jeste li sigurni da želite izbrisati ploču broj <strong>#{{ $disc->code }}</strong>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <form action="{{ route('discs.destroy', $disc) }}" method="POST" style="display:inline-block;">@method('DELETE') @csrf <button type="submit" class="btn ripple btn-outline-danger"><i class="fe fe-trash"></i> DA</button>
+                                    <button type="reset" class="btn ripple" data-bs-dismiss="modal">NE</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     @endforeach
                   </tbody>

@@ -17,8 +17,9 @@ return new class extends Migration
       $table->id();
       $table->unsignedInteger('code')->unique();
       $table->unsignedInteger('mass');
-      $table->unsignedInteger('current_mass');
+      $table->unsignedInteger('current_mass')->nullable()->default(null);
       $table->string('lot_number');
+      $table->enum('location', ['stock', 'warehouse', 'machine', 'used', 'undefined'])->default('undefined');
       $table->foreignId('grade_id')->constrained();
       $table->timestamps();
     });
